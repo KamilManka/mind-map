@@ -1,26 +1,23 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-// import { useNotificationContext } from "./NotificationContext";
 import { supabase } from "../supabaseClient";
+import { useNotificationContext } from "./NotificationContext";
 
 export const UserContext = createContext(undefined);
 
 export const UserProvider = ({ children }) => {
   const [usersArray, setUsersArray] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  //   const { setNotificationStatus, setMessage } = useNotificationContext();
+    const { setNotificationStatus, setMessage } = useNotificationContext();
   const [userName, setUserName] = useState([]);
   const [isLoginView, setIsLoginView] = useState(false);
   const [isSignupView, setIsSignupView] = useState(false);
   const [userId, setUserId] = useState();
-  // const navigate = useNavigate();
 
 
   useEffect(() => {
-    setIsLoggedIn(true);
-    setUserName("Kamil");
     getUserId();
-    return () => {};
+
   }, []);
 
   const toggleLoginForm = () => {
@@ -54,6 +51,10 @@ export const UserProvider = ({ children }) => {
     const { data: { user } } = await supabase.auth.getUser()
     console.log(user.id)
     setUserId(user.id)
+    if (user) {
+      setIsLoggedIn(true);
+    }
+
     
 };
 
@@ -61,18 +62,37 @@ export const UserProvider = ({ children }) => {
     const { data, error } = await supabase.auth.signInWithPassword({
       email: values.login,
       password: values.password,
-    });
 
+    });
+    console.log("data login", data);
     setIsLoggedIn(true);
     console.log("logged in")
     getUserId();
     setIsLoginView(false);
+    setMessage("You have successfully logged in");
+    setNotificationStatus("success");
+
 
   };
+
+  const logInWithThirdParty = async (provider) => {
+    let { data, error } = await supabase.auth.signInWithOAuth({
+      provider: provider
+    })
+    console.log("data login", data);
+    setIsLoggedIn(true);
+    console.log("logged in")
+    getUserId();
+    setIsLoginView(false);
+    setMessage("You have successfully logged in");
+    setNotificationStatus("success");
+  }
 
   const logOut = async () => {
     let { error } = await supabase.auth.signOut();
     setIsLoggedIn(false);
+    setMessage("You have successfully logged out");
+    setNotificationStatus("info");
   };
 
   return (
@@ -83,6 +103,7 @@ export const UserProvider = ({ children }) => {
         logOut,
         toggleLoginForm,
         toggleSignupForm,
+        logInWithThirdParty,
         isLoggedIn,
         userName,
         isLoginView,

@@ -15,7 +15,7 @@ export const NotificationProvider = ({ children }) => {
         {children}
         <Alert
           severity={notificationStatus}
-          sx={{ position: "fixed", top: "50px", left: '50%',
+          sx={{ position: "fixed", bottom: "50px", left: '50%',
           transform: 'translate(-50%, 0)'}}
         >
           {message}

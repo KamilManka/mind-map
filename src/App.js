@@ -18,6 +18,7 @@ import Overview from './components/dashboard/Overview';
 import EditAccount from './components/EditAccount';
 import { ViewAccountDetails } from './components/ViewAccountDetails';
 import { YouTube } from '@mui/icons-material';
+import { ProtectedWrapper } from './containers/ProtectedWrapper';
 
 const redirect_uri = 'http://localhost:3000/spotify'; // Your redirect uri
 
@@ -59,19 +60,20 @@ function App() {
                 <Route path="">
                   <Route index element={<Homepage />} />
                   <Route path="login" element={<Login />} />
-                  <Route path="auth" element={<Auth />} />
-                  <Route path="dashboard" element={<Dashboard />}>
+                  <Route path="dashboard" element={
+                  <ProtectedWrapper><Dashboard /></ProtectedWrapper>}>
                     <Route path=":tab" component={<Overview />} />
                     {/* <Route path="spotify" component={<Spotify />} />
                     <Route path="udemy" component={<Udemy />} /> */}
                   </Route>
                   <Route path="account">
-                    <Route index element={<ViewAccountDetails />} />
+                    <Route index element={<ProtectedWrapper><ViewAccountDetails /></ProtectedWrapper>} />
                     <Route path="edit" element={<EditAccount />} />
                   </Route>
                   <Route path="spotify" element={<Spotify />} />
                   <Route path="udemy" element={<Udemy />} />
                   <Route path="youtube" element={<YouTube />} />
+
                 </Route>
               </Routes>
             </Main>

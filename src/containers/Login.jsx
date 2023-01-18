@@ -8,15 +8,21 @@ import { useEffect } from "react";
 import { useUserContext } from "../contexts/UserContext";
 
 //TODO: sprawdzić czy zgadza się z bazą
-//TOOD: validators -> scheme
+//TODO: validators -> scheme
 const yupSchema = yup.object({
   login: yup.string().required().min(8),
   password: yup.string().required().min(8),
 });
 
 export const Login = () => {
-  const { logIn, toggleLoginForm, toggleSignupForm, isLoggedIn } = useUserContext();
+  const { logIn, toggleLoginForm, toggleSignupForm, isLoggedIn, logInWithThirdParty } = useUserContext();
   const navigate = useNavigate();
+  const redirectToDashboard = () => {
+      if (isLoggedIn) {
+        navigate("dashboard");
+      };
+  }
+
   const formik = useFormik({
     initialValues: {
       login: "",
@@ -25,12 +31,12 @@ export const Login = () => {
     validationSchema: yupSchema,
     onSubmit: (values) => {
       logIn(values);
+      redirectToDashboard();
+      
     },
   });
 
-  // if (isLoggedIn) {
-  //   navigate("/dashboard")
-  // }
+
 
   let slide = true;
 
@@ -53,6 +59,8 @@ export const Login = () => {
               onChange={formik.handleChange}
             />
             <Button type="submit">Log-in</Button>
+            <Button onClick={() => logInWithThirdParty("google")}>Google Log-in</Button>
+            <Button onClick={() => logInWithThirdParty("facebook")}>Facebook Log-in</Button>
             <Button
               component={Link}
               onClick={() => {

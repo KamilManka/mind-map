@@ -4,6 +4,7 @@ import { Login } from "../containers/Login";
 import { Signup } from "../containers/Signup";
 import { FiLogIn, FiMenu } from "react-icons/fi";
 import { CiCircleQuestion, CiGrid41, CiCircleMore } from "react-icons/ci";
+import {IoIosLogOut} from "react-icons/io"
 import { useUserContext } from "../contexts/UserContext";
 import Auth from "../Auth";
 import { Avatar, ClickAwayListener, Slide } from "@mui/material";
@@ -31,7 +32,7 @@ export const Navbar = () => {
   const handleClickAway = () => {
     setOpen(false);
   };
-
+console.log("isloggedin", isLoggedIn);
   //TODO: rozdzielić na dwa komponenty
   if (!isLoggedIn) {
     return (
@@ -72,11 +73,11 @@ export const Navbar = () => {
             </Link>
           </li>
 
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <Link to={"discover"} className="nav-link__logged-out">
               <span className="link-text">Discover</span>
             </Link>
-          </li>
+          </li> */}
 
           <li className="nav-item">
             <Link
@@ -119,7 +120,7 @@ export const Navbar = () => {
 
 
           <li className="nav-item">
-            <Link to={"dashboard"} className="nav-link">
+            <Link to={"dashboard/overview"} className="nav-link">
               <CiGrid41 className="nav-icon" size={"30px"} />
               <span className="link-text">Dashboard</span>
             </Link>
@@ -143,6 +144,12 @@ export const Navbar = () => {
             </Link>
           </li>
 
+          <li className="nav-item">
+            <Link to="/" className="nav-link">
+              <IoIosLogOut className="nav-icon" size={"30px"} />
+              <span className="link-text">Log-out</span>
+            </Link>
+          </li>
 
           <li className="nav-item">
             <Link to="/" className="nav-link">

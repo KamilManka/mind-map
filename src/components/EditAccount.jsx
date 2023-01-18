@@ -12,9 +12,9 @@ const EditAccount = () => {
 
   let userProfile = JSON.parse(sessionStorage.getItem('userProfile'));
 
-  useEffect(() => {
-    setUserLanguages(userProfile.languages.languages);
-  }, []);
+  // useEffect(() => {
+  //   setUserLanguages(userProfile.languages.languages);
+  // }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -26,8 +26,7 @@ const EditAccount = () => {
     // validationSchema: yupSchema,
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
-      // setNotification("success");
-      // setMessage("Dodano zamówienie");
+
     },
   });
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import {useUserContext} from "../../contexts/UserContext"
-import Paper from '@mui/material/Paper';
+import { useUserContext } from '../../contexts/UserContext';
+import { Paper, Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { ViewState, EditingState, IntegratedEditing } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
@@ -9,6 +10,9 @@ import {
   AppointmentForm,
   AppointmentTooltip,
   ConfirmationDialog,
+  DateNavigator,
+  Toolbar,
+  TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { supabase } from '../../supabaseClient';
 
@@ -297,34 +301,36 @@ const appointments = [
 ];
 
 const Overview = () => {
-  const [schedulerState, setSchedulerState] = useState({ data: [], currentDate: '2023-01-14' });
+  let todaysDate = new Date().toJSON().slice(0, 10);
+  const [schedulerState, setSchedulerState] = useState({ data: [], currentDate: todaysDate });
   // const [userId, setUserId] = useState();
-const {userId} = useUserContext();
+  const { userId } = useUserContext();
+  const [expanded, setExpanded] = React.useState(false);
 
-// const getUserId = async () => {
-//   const { data: { user } } = await supabase.auth.getUser()
-//   setUserId(user.id);
-//   console.log(userId);
-// }
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
 
+  // const getUserId = async () => {
+  //   const { data: { user } } = await supabase.auth.getUser()
+  //   setUserId(user.id);
+  //   console.log(userId);
+  // }
 
   const getAppointments = async () => {
     let { data: scheduler_data, error } = await supabase
-    .from('scheduler_data')
-    .select("*")
-    .eq('user_id', 'bfe1bd78-a6f7-41fd-9bba-6bf033587c4d')
-    console.log(scheduler_data)
+      .from('scheduler_data')
+      .select('*')
+      .eq('user_id', 'bfe1bd78-a6f7-41fd-9bba-6bf033587c4d');
+    console.log(scheduler_data);
     setSchedulerState(scheduler_data);
+  };
 
-  }
+  useEffect(() => {
+    getAppointments();
+  }, []);
 
-
-useEffect(() => {
-  getAppointments();
-}, [])
-
-console.log(schedulerState);
-
+  console.log(schedulerState);
 
   const commitChanges = ({ added, changed, deleted }) => {
     let { data } = schedulerState;
@@ -340,27 +346,38 @@ console.log(schedulerState);
     if (deleted !== undefined) {
       data = data.filter((appointment) => appointment.id !== deleted);
     }
-    setSchedulerState({data: data});
+    setSchedulerState({ data: data });
     console.log(data);
     return { data };
   };
   const { currentDate, data } = schedulerState;
   return (
     <div>
-      {' '}
+      <h2>Your priorities</h2>
+      <h2>Newly added</h2>
 
-      <Paper>
-        <Scheduler data={data} height={660}>
-          <ViewState currentDate={currentDate} />
-          <EditingState onCommitChanges={(e) => commitChanges(e)} />
-          <IntegratedEditing />
-          <DayView startDayHour={9} endDayHour={19} />
-          <ConfirmationDialog />
-          <Appointments />
-          <AppointmentTooltip showOpenButton showDeleteButton />
-          <AppointmentForm />
-        </Scheduler>
-      </Paper>
+      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
+          <Typography sx={{ width: '33%', flexShrink: 0 }}>Planner</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Paper sx={{ width: '700px' }}>
+            <Scheduler data={data} height={500}>
+              <ViewState currentDate={currentDate} />
+              <EditingState onCommitChanges={(e) => commitChanges(e)} />
+              <IntegratedEditing />
+              <DayView startDayHour={9} endDayHour={19} />
+              <Toolbar />
+              <DateNavigator />
+              <TodayButton />
+              <ConfirmationDialog />
+              <Appointments />
+              <AppointmentTooltip showOpenButton showDeleteButton />
+              <AppointmentForm />
+            </Scheduler>
+          </Paper>
+        </AccordionDetails>
+      </Accordion>
     </div>
   );
 };

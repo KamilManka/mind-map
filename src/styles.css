@@ -40,6 +40,8 @@ main {
   padding: 7px 12px;
   border-radius: 5px;
   white-space: nowrap;
+  width: 100px;
+  text-align: center;
 }
 
 .red-btn {
@@ -243,6 +245,7 @@ main {
   padding: 0;
   margin: 0;
   display: flex;
+  gap: 10px;
   flex-direction: column;
   align-items: center;
   height: 100%;
@@ -446,7 +449,7 @@ main {
     right: 0;
     width: 16rem;
     height: 100vh;
-    padding: 0 1.5rem 0 0;
+    padding: 0 1.5rem;
   }
   .navbar:hover {
     width: 16rem;
