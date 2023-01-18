@@ -1,7 +1,6 @@
 // import axios from 'axios';
 import React, { useEffect, useState } from "react";
 
-// TODO: move to env
 const clientId = "w0I3Np4gQEtfO4yAbbhjBfdzOuyBmOJkIw2hA83g";
 const clientSecret =
   "mlqKlb7zfVKU425vQllkNP17QhrndG1DHbiiFoKEOyy1YqKFko3cTFdYFBWgKr5NYdNnwkMbT5EUyh5cLHszS2c0E9eeWrpteb4JgQAkZzQkxqUE6TDrfrigEqF3mSVA";
