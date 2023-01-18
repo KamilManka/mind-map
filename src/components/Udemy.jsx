@@ -1,9 +1,8 @@
 // import axios from 'axios';
 import React, { useEffect, useState } from "react";
 
-const clientId = "w0I3Np4gQEtfO4yAbbhjBfdzOuyBmOJkIw2hA83g";
-const clientSecret =
-  "mlqKlb7zfVKU425vQllkNP17QhrndG1DHbiiFoKEOyy1YqKFko3cTFdYFBWgKr5NYdNnwkMbT5EUyh5cLHszS2c0E9eeWrpteb4JgQAkZzQkxqUE6TDrfrigEqF3mSVA";
+const clientId = process.env.REACT_APP_UDEMY_ID;
+const clientSecret = process.env.REACT_APP_UDEMY_CLIENT_SECRET;
 
 const Udemy = () => {
   const requestToken = async () => {

@@ -4,8 +4,8 @@ import { TiPlus } from 'react-icons/ti';
 import { supabase } from '../supabaseClient';
 
 const Spotify = () => {
-  const clientId = '83b8cf8a652942e38b59ecab32b504a8'; // Your client id
-  const clientSecret = '227fa1a412a240759ba54406e5556535'; // Your secret
+  const clientId = process.env.REACT_APP_SPOTIFY_ID; // Your client id
+  const clientSecret = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET; // Your secret
   const [showsList, setShowsList] = useState([]);
   const [showsQuery, setShowsQuery] = useState('');
 
