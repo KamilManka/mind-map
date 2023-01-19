@@ -16,7 +16,10 @@ export const UserProvider = ({ children }) => {
 
 
   useEffect(() => {
-    getUserId();
+    if (sessionStorage.getItem("user")) {
+      setIsLoggedIn(true);
+    }
+
 
   }, []);
 
@@ -52,6 +55,7 @@ export const UserProvider = ({ children }) => {
     console.log(user.id)
     setUserId(user.id)
     if (user) {
+      sessionStorage.setItem("user", JSON.stringify(user));
       setIsLoggedIn(true);
     }
 

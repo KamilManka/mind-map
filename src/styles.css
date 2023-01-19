@@ -202,9 +202,7 @@ main {
     width: -moz-fit-content;
     width: fit-content;
   }
-  .outline-btn,
-.red-btn,
-.navbar__links {
+  .navbar__links {
     display: none;
   }
   .login-icon,

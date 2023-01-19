@@ -8,6 +8,7 @@ export const ProtectedWrapper = ({ children }) => {
 
   useEffect(() => {
     if (!isLoggedIn) {
+      console.log("redirect")
       navigate('/');
     }
   }, [isLoggedIn, navigate]);

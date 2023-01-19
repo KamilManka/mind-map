@@ -36,74 +36,7 @@ console.log("isloggedin", isLoggedIn);
   //TODO: rozdzielić na dwa komponenty
   if (!isLoggedIn) {
     return (
-      // <nav className="navbar">
-      //   <div className="navbar__links">
-      //     <Link style={linkStyle}>Discover</Link>
-      //     <Link style={linkStyle}>About</Link>
-      //     <Link style={linkStyle}>Contact</Link>
-      //     <Link style={linkStyle} to="auth">
-      //       Auth
-      //     </Link>
-      //   </div>
-      //   <Link onClick={() => toggleLoginForm()}>
-      //     <div className="outline-btn">Log-in</div>
-      //   </Link>
-
-      //   <Link
-      //     onClick={() => {
-      //       toggleSignupForm();
-      //     }}
-      //   >
-      //     <div className="red-btn">Sign-up</div>
-      //   </Link>
-      //   <Link onClick={() => toggleLoginForm()}>
-      //     <FiLogIn className="login-icon" alt="Login" />
-      //   </Link>
-
-      //   <FiMenu className="menu-icon" />
-      //   {isLoginView ? <Login /> : null}
-      //   {isSignupView ? <Signup /> : null}
-      // </nav>
       <>
-      <nav className="navbar__logged-out">
-        <ul className="navbar-nav">
-          <li className="logo">
-            <Link to={"/"} className="nav-link__logged-out">
-              <span className="link-text logo-text">Mind Map</span>
-            </Link>
-          </li>
-
-          {/* <li className="nav-item">
-            <Link to={"discover"} className="nav-link__logged-out">
-              <span className="link-text">Discover</span>
-            </Link>
-          </li> */}
-
-          <li className="nav-item">
-            <Link
-              onClick={() => {
-                toggleSignupForm();
-              }}
-            >
-              <div className="red-btn">Sign-up</div>
-            </Link>
-          </li>
-
-          <li className="nav-item">
-            <Link onClick={() => toggleLoginForm()}>
-              <div className="outline-btn">Log-in</div>
-            </Link>
-          </li>
-
-          <li className="nav-item">
-            <a href="#" className="nav-link__logged-out">
-              <CiCircleQuestion className="nav-icon" size={"30px"} />
-              <span className="link-text">About</span>
-            </a>
-          </li>
-        </ul>
-
-      </nav>
               {isLoginView ? <Login /> : null}
               {isSignupView ? <Signup /> : null}</>
     );

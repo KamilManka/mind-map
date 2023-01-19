@@ -356,7 +356,7 @@ const Overview = () => {
       <h2>Your priorities</h2>
       <h2>Newly added</h2>
 
-      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')} sx={{position: "static"}}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
           <Typography sx={{ width: '33%', flexShrink: 0 }}>Planner</Typography>
         </AccordionSummary>
