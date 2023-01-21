@@ -87,16 +87,17 @@ export const UserProvider = ({ children }) => {
   const logInWithThirdParty = async (provider) => {
     let { data, error } = await supabase.auth.signInWithOAuth({
       provider: provider
-      }).then(() => {
-      setTimeout(() => {
+      })
+      // .then(() => {
+      // setTimeout(() => {
         getUserId();
         setIsLoginView(false);
         setIsLoggedIn(true);
-        setMessage("You have successfully logged in");
-        setNotificationStatus("success");
-      }, 2000);
+      //   setMessage("You have successfully logged in");
+      //   setNotificationStatus("success");
+      // }, 2000);
 
-    })
+    // })
     console.log("data login", data);
     console.log("logged in")
   }

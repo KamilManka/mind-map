@@ -18,7 +18,7 @@ const linkStyle = {
 export const Navbar = () => {
   
 
-  const { toggleLoginForm, isLoginView, isLoggedIn, toggleSignupForm, isSignupView } =
+  const { toggleLoginForm, isLoginView, isLoggedIn, toggleSignupForm, isSignupView, logOut } =
     useUserContext();
 
   const [open, setOpen] = useState(false);
@@ -78,7 +78,7 @@ console.log("isloggedin", isLoggedIn);
           </li>
 
           <li className="nav-item">
-            <Link to="/" className="nav-link">
+            <Link to="/" className="nav-link" onClick={() => logOut()}>
               <IoIosLogOut className="nav-icon" size={"30px"} />
               <span className="link-text">Log-out</span>
             </Link>
