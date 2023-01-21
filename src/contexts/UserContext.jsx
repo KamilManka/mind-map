@@ -1,5 +1,5 @@
 import { createContext, useState, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigation } from "react-router-dom";
 import { supabase } from "../supabaseClient";
 import { useNotificationContext } from "./NotificationContext";
 
@@ -13,6 +13,7 @@ export const UserProvider = ({ children }) => {
   const [isLoginView, setIsLoginView] = useState(false);
   const [isSignupView, setIsSignupView] = useState(false);
   const [userId, setUserId] = useState();
+  // const navigate = useNavigation("");
 
 
   useEffect(() => {
@@ -67,29 +68,37 @@ export const UserProvider = ({ children }) => {
       email: values.login,
       password: values.password,
 
-    });
-    console.log("data login", data);
-    setIsLoggedIn(true);
-    console.log("logged in")
-    getUserId();
-    setIsLoginView(false);
-    setMessage("You have successfully logged in");
-    setNotificationStatus("success");
+    }).then(data => {
+      setIsLoggedIn(true);
+    }).then(() => {
+      setTimeout(() => {
+        getUserId();
+        setIsLoginView(false);
+        setMessage("You have successfully logged in");
+        setNotificationStatus("success");
+      }, 2000);
 
+    })
+    console.log("data login", data);
+    console.log("logged in")
 
   };
 
   const logInWithThirdParty = async (provider) => {
     let { data, error } = await supabase.auth.signInWithOAuth({
       provider: provider
+    }).then(() => {
+      setTimeout(() => {
+        getUserId();
+        setIsLoginView(false);
+        setIsLoggedIn(true);
+        setMessage("You have successfully logged in");
+        setNotificationStatus("success");
+      }, 2000);
+
     })
     console.log("data login", data);
-    setIsLoggedIn(true);
     console.log("logged in")
-    getUserId();
-    setIsLoginView(false);
-    setMessage("You have successfully logged in");
-    setNotificationStatus("success");
   }
 
   const logOut = async () => {
