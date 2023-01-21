@@ -107,6 +107,7 @@ export const UserProvider = ({ children }) => {
     setIsLoggedIn(false);
     setMessage("You have successfully logged out");
     setNotificationStatus("info");
+    sessionStorage.removeItem("user")
   };
 
   return (
