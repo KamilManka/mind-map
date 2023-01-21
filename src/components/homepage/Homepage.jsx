@@ -5,10 +5,13 @@ import { supabase } from '../../supabaseClient';
 import {Link} from "react-router-dom"
 
 export const Homepage = () => {
-  const { logOut,toggleLoginForm,toggleSignupForm } = useUserContext();
+  const { logOut,toggleLoginForm,toggleSignupForm, userId, setIsLoggedIn } = useUserContext();
 
   supabase.auth.onAuthStateChange((event, session) => {
     console.log(event, session);
+    if (userId) {
+      setIsLoggedIn(true);
+    }
   });
 
   return (
