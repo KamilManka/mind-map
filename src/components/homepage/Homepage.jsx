@@ -3,9 +3,11 @@ import React from 'react';
 import { useUserContext } from '../../contexts/UserContext';
 import { supabase } from '../../supabaseClient';
 import {Link} from "react-router-dom"
+import { useNavigate } from 'react-router-dom';
 
 export const Homepage = () => {
   const { logOut,toggleLoginForm,toggleSignupForm, userId, setIsLoggedIn } = useUserContext();
+  const navigate = useNavigate();
 
   supabase.auth.onAuthStateChange((event, session) => {
     console.log(event, session);
@@ -13,6 +15,13 @@ export const Homepage = () => {
       setIsLoggedIn(true);
     }
   });
+
+  useEffect(() => {
+    navigate("dashboard");
+  
+
+  }, [])
+  
 
   return (
     <>
