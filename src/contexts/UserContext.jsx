@@ -87,7 +87,7 @@ export const UserProvider = ({ children }) => {
   const logInWithThirdParty = async (provider) => {
     let { data, error } = await supabase.auth.signInWithOAuth({
       provider: provider
-    }).then(() => {
+      }).then(() => {
       setTimeout(() => {
         getUserId();
         setIsLoginView(false);
